@@ -1,10 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const jpgPage = document.getElementById('jpgPage');
   const menuPage = document.getElementById('menuPage');
   const letterPage = document.getElementById('letterPage');
   const futurePage = document.getElementById('futurePage');
   const celebrationPage = document.getElementById('celebrationPage');
   const countdownPage = document.getElementById('countdownPage');
   const videoPage = document.getElementById('videoPage');
+  const jpgNextButton = document.getElementById('jpgNextButton');
   const nextPageButton = document.getElementById('nextPageButton');
   const letter = document.getElementById('letter');
   const questionFooter = document.getElementById('questionFooter');
@@ -18,11 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const finalVideo = document.getElementById('finalVideo');
   const bgMusic = document.getElementById('bgMusic');
 
-  const screens = [menuPage, letterPage, futurePage, celebrationPage, countdownPage, videoPage];
+  const screens = [jpgPage, menuPage, letterPage, futurePage, celebrationPage, countdownPage, videoPage];
   let firstNoAttempts = 0;
   let futureNoAttempts = 0;
   let appStarted = false;
   let countdownStarted = false;
+  let letterStarted = false;
 
   const letterText = [
     'Si estás leyendo esto, es porque ya pasaste la primera página. Y sí, todo esto lo armé para ti.',
@@ -36,48 +39,38 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
 
   function showScreen(target) {
-    screens.forEach((screen) => {
-      screen.hidden = screen !== target;
-    });
-
+    screens.forEach(screen => { screen.hidden = screen !== target; });
     target.classList.remove('screen-restart');
     void target.offsetWidth;
     target.classList.add('screen-restart');
   }
 
-  function sleep(ms) {
-    return new Promise((resolve) => window.setTimeout(resolve, ms));
-  }
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
   function typeText(text, target, speed = 27) {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       let index = 0;
-
       function type() {
         if (index < text.length) {
-          target.textContent += text[index];
-          index += 1;
-          window.setTimeout(type, speed);
-        } else {
-          resolve();
-        }
+          target.textContent += text[index++];
+          setTimeout(type, speed);
+        } else resolve();
       }
-
       type();
     });
   }
 
   async function showLetter() {
+    if (letterStarted) return;
+    letterStarted = true;
     letter.innerHTML = '';
     questionFooter.hidden = true;
-
-    for (const paragraphText of letterText) {
+    for (const text of letterText) {
       const paragraph = document.createElement('p');
       letter.appendChild(paragraph);
-      await typeText(paragraphText, paragraph);
+      await typeText(text, paragraph);
       await sleep(450);
     }
-
     questionFooter.hidden = false;
   }
 
@@ -92,9 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const width = button.offsetWidth || 120;
     const height = button.offsetHeight || 50;
     const margin = 15;
-    const maxX = Math.max(margin, window.innerWidth - width - margin);
-    const maxY = Math.max(margin, window.innerHeight - height - margin);
-
+    const maxX = Math.max(margin, innerWidth - width - margin);
+    const maxY = Math.max(margin, innerHeight - height - margin);
     button.style.position = 'fixed';
     button.style.left = `${Math.floor(margin + Math.random() * (maxX - margin))}px`;
     button.style.top = `${Math.floor(margin + Math.random() * (maxY - margin))}px`;
@@ -106,86 +98,58 @@ document.addEventListener('DOMContentLoaded', () => {
     photoSurprise.hidden = false;
   }
 
-  function closeFac() {
-    photoSurprise.hidden = true;
-  }
+  function closeFac() { photoSurprise.hidden = true; }
 
   function startCountdown() {
     if (countdownStarted) return;
     countdownStarted = true;
-
     showScreen(countdownPage);
     let seconds = 5;
     countdownTimer.textContent = String(seconds);
-
-    const interval = window.setInterval(() => {
+    const interval = setInterval(() => {
       seconds -= 1;
-
-      if (seconds > 0) {
-        countdownTimer.textContent = String(seconds);
-        return;
+      if (seconds > 0) countdownTimer.textContent = String(seconds);
+      else {
+        clearInterval(interval);
+        showScreen(videoPage);
+        // Intenta autoplay con sonido. Si Safari lo bloquea, quedan visibles los controles.
+        finalVideo.play().catch(() => {});
       }
-
-      window.clearInterval(interval);
-      showScreen(videoPage);
-      finalVideo.play().catch(() => {});
     }, 1000);
   }
 
   function showCelebration() {
     resetButton(btnFutureNo);
     showScreen(celebrationPage);
-    window.setTimeout(startCountdown, 7000);
+    setTimeout(startCountdown, 7000);
   }
+
+  jpgNextButton.addEventListener('click', () => showScreen(menuPage));
 
   nextPageButton.addEventListener('click', async () => {
     if (appStarted) return;
-
     appStarted = true;
     showScreen(letterPage);
-
-    if (bgMusic) {
-      bgMusic.volume = 0.5;
-      bgMusic.play().catch(() => {});
-    }
-
+    if (bgMusic) { bgMusic.volume = .5; bgMusic.play().catch(() => {}); }
     await showLetter();
   });
 
-  btnYes.addEventListener('click', () => {
-    resetButton(btnNo);
-    showScreen(futurePage);
-  });
+  btnYes.addEventListener('click', () => { resetButton(btnNo); showScreen(futurePage); });
 
   btnNo.addEventListener('click', () => {
     firstNoAttempts += 1;
-
-    if (firstNoAttempts < 3) {
-      moveButton(btnNo);
-    } else {
-      firstNoAttempts = 0;
-      openFac(btnNo);
-    }
+    if (firstNoAttempts < 3) moveButton(btnNo);
+    else { firstNoAttempts = 0; openFac(btnNo); }
   });
 
   btnFutureYes.addEventListener('click', showCelebration);
 
   btnFutureNo.addEventListener('click', () => {
     futureNoAttempts += 1;
-
-    if (futureNoAttempts < 3) {
-      moveButton(btnFutureNo);
-    } else {
-      futureNoAttempts = 0;
-      openFac(btnFutureNo);
-    }
+    if (futureNoAttempts < 3) moveButton(btnFutureNo);
+    else { futureNoAttempts = 0; openFac(btnFutureNo); }
   });
 
   photoClose.addEventListener('click', closeFac);
-
-  photoSurprise.addEventListener('click', (event) => {
-    if (event.target === photoSurprise) {
-      closeFac();
-    }
-  });
+  photoSurprise.addEventListener('click', event => { if (event.target === photoSurprise) closeFac(); });
 });
