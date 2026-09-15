@@ -2,15 +2,24 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#101010">
-  <title>SMASH.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#111111">
+  <title>Para Paloma</title>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
   <div class="bg-hearts" aria-hidden="true"></div>
 
-  <section class="screen page-menu" id="menuPage">
+  <section class="screen jpg-page" id="jpgPage">
+    <div class="jpg-card">
+      <div class="menu-image-wrap">
+        <img class="menu-image" src="./image.jpg" alt="Carta del menú">
+      </div>
+      <button class="btn btn-primary jpg-next" id="jpgNextButton" type="button">SIGUIENTE HOJA <span aria-hidden="true">→</span></button>
+    </div>
+  </section>
+
+  <section class="screen page-menu" id="menuPage" hidden>
     <div class="burger-menu">
       <div class="burger-topline"><span>PARA LLEVAR</span><span>ATENCIÓN EN LOCAL</span></div>
       <div class="burger-logo" aria-hidden="true">🍔</div>
@@ -36,10 +45,7 @@
         <article class="burger-item"><div><h3>Queso cheddar</h3><p>Agrega más sabor.</p></div><strong>$1.000</strong></article>
         <article class="burger-item"><div><h3>Tocino</h3><p>Crujiente y ahumado.</p></div><strong>$1.500</strong></article>
       </section>
-      <div class="burger-footer">
-        <p>Continúa para revisar la siguiente página.</p>
-        <button class="btn btn-primary" id="nextPageButton" type="button">SIGUIENTE PÁGINA <span aria-hidden="true">→</span></button>
-      </div>
+      <div class="burger-footer"><p>Continúa para revisar la siguiente página.</p><button class="btn btn-primary" id="nextPageButton" type="button">SIGUIENTE PÁGINA <span aria-hidden="true">→</span></button></div>
     </div>
   </section>
 
@@ -49,72 +55,26 @@
       <section class="question-footer" id="questionFooter" hidden>
         <div class="question-separator" aria-hidden="true"><span></span><b>♥</b><span></span></div>
         <h2>¿Puedo ser tu novio?</h2>
-        <div class="buttons">
-          <button class="btn btn-primary" id="btnYes" type="button">¡Sí!</button>
-          <button class="btn btn-secondary" id="btnNo" type="button">No</button>
-        </div>
+        <div class="buttons"><button class="btn btn-primary" id="btnYes" type="button">¡Sí!</button><button class="btn btn-secondary" id="btnNo" type="button">No</button></div>
       </section>
     </div>
   </section>
 
   <section class="screen" id="futurePage" hidden>
-    <div class="glass-card future-card">
-      <div class="future-heart" aria-hidden="true">♥</div>
-      <h1>¿Quieres construir un futuro juntos?</h1>
-      <p>¿Estás segura?</p>
-      <div class="buttons">
-        <button class="btn btn-primary" id="btnFutureYes" type="button">Sí, quiero ❤️</button>
-        <button class="btn btn-secondary" id="btnFutureNo" type="button">No</button>
-      </div>
-    </div>
+    <div class="glass-card future-card"><div class="future-heart" aria-hidden="true">♥</div><h1>¿Quieres construir un futuro juntos?</h1><p>¿Estás segura?</p><div class="buttons"><button class="btn btn-primary" id="btnFutureYes" type="button">Sí, quiero ❤️</button><button class="btn btn-secondary" id="btnFutureNo" type="button">No</button></div></div>
   </section>
 
   <section class="screen" id="celebrationPage" hidden>
-    <div class="celebration-content">
-      <div class="romantic-heart-scene" aria-hidden="true">
-        <div class="neon-ring ring-one"></div><div class="neon-ring ring-two"></div><div class="neon-ring ring-three"></div>
-        <div class="neon-heart">♥</div>
-      </div>
-      <div class="celebration-card">
-        <p class="celebration-quote">No sé cómo ni cuándo, ni quién salvó a quién, pero qué feliz me ha hecho coincidir contigo.</p>
-        <p class="celebration-location">De Temuco para Santiago.</p>
-        <p class="celebration-signature">-Gabriel</p>
-        <p class="celebration-stars" aria-hidden="true">✦ ♥ ✦</p>
-      </div>
-    </div>
+    <div class="celebration-content"><div class="romantic-heart-scene" aria-hidden="true"><div class="neon-ring ring-one"></div><div class="neon-ring ring-two"></div><div class="neon-ring ring-three"></div><div class="neon-heart">♥</div></div><div class="celebration-card"><p class="celebration-quote">No sé cómo ni cuándo, ni quién salvó a quién, pero qué feliz me ha hecho coincidir contigo.</p><p class="celebration-location">De Temuco para Santiago.</p><p class="celebration-signature">-Gabriel</p><p class="celebration-stars" aria-hidden="true">✦ ♥ ✦</p></div></div>
   </section>
 
-  <section class="screen" id="countdownPage" hidden>
-    <div class="glass-card countdown-card">
-      <div class="future-heart" aria-hidden="true">♥</div>
-      <h1>¡Gracias por decir que sí!</h1>
-      <p>Prepárate para lo que sigue...</p>
-      <div class="countdown-timer" id="countdownTimer">5</div>
-    </div>
-  </section>
+  <section class="screen" id="countdownPage" hidden><div class="glass-card countdown-card"><div class="future-heart" aria-hidden="true">♥</div><h1>¡Gracias por decir que sí!</h1><p>Prepárate para lo que sigue...</p><div class="countdown-timer" id="countdownTimer">5</div></div></section>
 
-  <section class="screen" id="videoPage" hidden>
-    <div class="video-container">
-      <video id="finalVideo" controls playsinline preload="metadata">
-        <source src="./video.mp4" type="video/mp4">
-        Tu navegador no soporta videos.
-      </video>
-    </div>
-  </section>
+  <section class="screen" id="videoPage" hidden><div class="video-container"><video id="finalVideo" controls playsinline preload="metadata"><source src="./video.mp4" type="video/mp4">Tu navegador no soporta videos.</video></div></section>
 
-  <section class="photo-surprise" id="photoSurprise" hidden role="dialog" aria-modal="true" aria-label="Sorpresa">
-    <div class="photo-card">
-      <button class="photo-close" id="photoClose" type="button" aria-label="Cerrar">×</button>
-      <img src="./no.jpg" alt="Foto sorpresa">
-      <div class="fac-overlay" aria-hidden="true"><span>💀</span><strong>FAC</strong></div>
-      <h2>FAC 💀</h2>
-    </div>
-  </section>
+  <section class="photo-surprise" id="photoSurprise" hidden role="dialog" aria-modal="true" aria-label="Sorpresa"><div class="photo-card"><button class="photo-close" id="photoClose" type="button" aria-label="Cerrar">×</button><img src="./no.jpg" alt="Foto sorpresa"><div class="fac-overlay" aria-hidden="true"><span>💀</span><strong>FAC</strong></div><h2>FAC 💀</h2></div></section>
 
-  <audio id="bgMusic" loop preload="auto">
-    <source src="./cancion.mp3" type="audio/mpeg">
-  </audio>
-
+  <audio id="bgMusic" loop preload="auto"><source src="./cancion.mp3" type="audio/mpeg"></audio>
   <script src="./script.js" defer></script>
 </body>
 </html>
