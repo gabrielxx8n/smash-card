@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101010">
+  <title>SMASH.</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-hearts" aria-hidden="true"></div>
+
+  <!-- Pantalla 1: menú -->
+  <section class="screen page-menu" id="menuPage">
+    <div class="burger-menu">
+      <div class="burger-topline"><span>PARA LLEVAR</span><span>ATENCIÓN EN LOCAL</span></div>
+      <div class="burger-logo" aria-hidden="true">🍔</div>
+      <p class="burger-kicker">SMASH.</p>
+      <h1>MENÚ DEL DÍA</h1>
+      <p class="burger-subtitle">HECHO A LA PLANCHA · PREPARADO AL MOMENTO</p>
+
+      <div class="burger-rule"></div>
+      <section class="burger-category">
+        <div class="category-heading"><h2>HAMBURGUESAS</h2><span>★</span></div>
+        <article class="burger-item"><div><h3>Classic Smash</h3><p>Carne, queso, lechuga, tomate y salsa de la casa.</p></div><strong>$8.990</strong></article>
+        <article class="burger-item"><div><h3>Double Cheese</h3><p>Doble carne, doble queso y pepinillos.</p></div><strong>$10.990</strong></article>
+        <article class="burger-item"><div><h3>Smokehouse Doble</h3><p>Doble carne, tocino, cheddar, cebolla crispy y salsa BBQ ahumada.</p></div><strong>$11.490</strong></article>
+      </section>
+
+      <div class="burger-rule"></div>
+      <section class="burger-category">
+        <div class="category-heading"><h2>ACOMPAÑAMIENTOS</h2><span>★</span></div>
+        <article class="burger-item"><div><h3>Papas rústicas</h3><p>Crocantes por fuera, suaves por dentro.</p></div><strong>$3.490</strong></article>
+        <article class="burger-item"><div><h3>Bebida helada</h3><p>Elige tu favorita.</p></div><strong>$2.490</strong></article>
+      </section>
+
+      <div class="burger-rule"></div>
+      <section class="burger-category">
+        <div class="category-heading"><h2>EXTRAS</h2><span>★</span></div>
+        <article class="burger-item"><div><h3>Queso cheddar</h3><p>Agrega más sabor.</p></div><strong>$1.000</strong></article>
+        <article class="burger-item"><div><h3>Tocino</h3><p>Crujiente y ahumado.</p></div><strong>$1.500</strong></article>
+      </section>
+
+      <div class="burger-footer">
+        <p>Continúa para revisar la siguiente página.</p>
+        <button class="btn btn-primary" id="nextPageButton" type="button">SIGUIENTE PÁGINA <span aria-hidden="true">→</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pantalla 2: carta y pregunta -->
+  <section class="screen" id="letterPage" hidden>
+    <div class="letter-wrap">
+      <article class="letter" id="letter" aria-live="polite"></article>
+      <section class="question-footer" id="questionFooter" hidden>
+        <div class="question-separator" aria-hidden="true"><span></span><b>♥</b><span></span></div>
+        <h2>¿Puedo ser tu novio?</h2>
+        <div class="buttons">
+          <button class="btn btn-primary" id="btnYes" type="button">¡Sí!</button>
+          <button class="btn btn-secondary" id="btnNo" type="button">No</button>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <!-- Pantalla 3: futuro -->
+  <section class="screen" id="futurePage" hidden>
+    <div class="glass-card future-card">
+      <div class="future-heart" aria-hidden="true">♥</div>
+      <h1>¿Quieres construir un futuro juntos?</h1>
+      <p>¿Estás segura?</p>
+      <div class="buttons">
+        <button class="btn btn-primary" id="btnFutureYes" type="button">Sí, quiero ❤️</button>
+        <button class="btn btn-secondary" id="btnFutureNo" type="button">No</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pantalla 4: cierre -->
+  <section class="screen" id="celebrationPage" hidden>
+    <div class="celebration-content">
+      <div class="romantic-heart-scene" aria-hidden="true">
+        <div class="neon-ring ring-one"></div><div class="neon-ring ring-two"></div><div class="neon-ring ring-three"></div>
+        <div class="neon-heart">♥</div>
+      </div>
+      <div class="celebration-card">
+        <p class="celebration-quote">No sé cómo ni cuándo, ni quién salvó a quién, pero qué feliz me ha hecho coincidir contigo.</p>
+        <p class="celebration-location">De Temuco para Santiago.</p>
+        <p class="celebration-signature">-Gabriel</p>
+        <p class="celebration-stars" aria-hidden="true">✦ ♥ ✦</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pantalla 5: contador -->
+  <section class="screen" id="countdownPage" hidden>
+    <div class="glass-card countdown-card">
+      <div class="future-heart" aria-hidden="true">♥</div>
+      <h1>¡Gracias por decir que sí!</h1>
+      <p>Prepárate para lo que sigue...</p>
+      <div class="countdown-timer" id="countdownTimer">5</div>
+    </div>
+  </section>
+
+  <!-- Pantalla 6: video -->
+  <section class="screen" id="videoPage" hidden>
+    <div class="video-container">
+      <video id="finalVideo" controls playsinline preload="metadata">
+        <source src="assets/video.mp4" type="video/mp4">
+        Tu navegador no soporta videos.
+      </video>
+    </div>
+  </section>
+
+  <!-- Modal FAC: solo aparece al tercer No -->
+  <section class="photo-surprise" id="photoSurprise" hidden role="dialog" aria-modal="true" aria-label="Sorpresa">
+    <div class="photo-card">
+      <button class="photo-close" id="photoClose" type="button" aria-label="Cerrar">×</button>
+      <img src="assets/no.jpg" alt="Foto sorpresa">
+      <div class="fac-overlay" aria-hidden="true"><span>💀</span><strong>FAC</strong></div>
+      <h2>FAC 💀</h2>
+    </div>
+  </section>
+
+  <audio id="bgMusic" loop preload="auto">
+    <source src="music/cancion.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
